@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>TransitMaster/Admin Dashboard</title>
+    <link rel="icon" href="Kerala_State_Road_Transport_Corporation_logo.png">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.getElementsByClassName('tab');
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].style.display = 'none';
+            }
+
+            // Show the selected tab
+            document.getElementById(tabName).style.display = 'block';
+
+            // Fetch data for the selected tab
+            if (tabName === 'allAdmins') {
+                fetchAllAdmins();
+            } else if (tabName === 'deleteAdmin') {
+                fetchAllAdminsForDelete();
+            } else if (tabName === 'createStationMaster') {
+                document.getElementById('createStationMasterForm').reset();
+            } else if (tabName === 'allStationMasters') {
+                fetchAllStationMasters();
+            } else if (tabName === 'deleteStationMaster') {
+                fetchAllStationMastersForDelete();
+            }
+        }
+
+        function createStationMaster() {
+            const username = document.getElementById('stationMasterUsername').value;
+            const email = document.getElementById('stationMasterEmail').value;
+            const password = document.getElementById('stationMasterPassword').value;
+
+            fetch('https://transitserver.govindsr.me/api/v2/createStationMaster', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, email: email, password: password })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Station Master created successfully.');
+                        showTab('allStationMasters');
+                    } else {
+                        alert('Failed to create Station Master. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function fetchAllStationMasters() {
+            fetch('https://transitserver.govindsr.me/api/v2/getAllStationMasters')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data); // Print the response for debugging
+
+                    if (data.success && Array.isArray(data.stationMasters)) {
+                        // Build the table with username and email fields
+                        const table = document.createElement('table');
+                        const headerRow = table.insertRow();
+                        const usernameHeader = headerRow.insertCell();
+                        const emailHeader = headerRow.insertCell();
+                        usernameHeader.textContent = 'Username';
+                        emailHeader.textContent = 'Email';
+
+                        // Add data rows
+                        data.stationMasters.forEach(stationMaster => {
+                            const row = table.insertRow();
+                            const usernameCell = row.insertCell();
+                            const emailCell = row.insertCell();
+                            usernameCell.textContent = stationMaster.username;
+                            emailCell.textContent = stationMaster.email;
+                        });
+
+                        // Clear existing table (if any) and append the new table
+                        const allStationMastersTab = document.getElementById('allStationMasters');
+                        allStationMastersTab.innerHTML = '';
+                        allStationMastersTab.appendChild(table);
+                    } else {
+                        console.error('Invalid response format:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function deleteStationMaster(email) {
+            const confirmation = confirm(`Are you sure you want to delete the Station Master with email: ${email}?`);
+            if (confirmation) {
+                fetch(`https://transitserver.govindsr.me/api/v2/deleteStationMaster/${email}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Station Master deleted successfully.');
+                            showTab('allStationMasters');
+                        } else {
+                            alert('Failed to delete Station Master. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        }
+
+        function fetchAllAdmins() {
+            fetch('https://transitserver.govindsr.me/api/v2/getAllAdmins')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data); // Print the response for debugging
+
+                    if (data.success && Array.isArray(data.admins)) {
+                        // Build the table with username and email fields
+                        const table = document.createElement('table');
+                        const headerRow = table.insertRow();
+                        const usernameHeader = headerRow.insertCell();
+                        const emailHeader = headerRow.insertCell();
+                        usernameHeader.textContent = 'Username';
+                        emailHeader.textContent = 'Email';
+
+                        // Add data rows
+                        data.admins.forEach(admin => {
+                            const row = table.insertRow();
+                            const usernameCell = row.insertCell();
+                            const emailCell = row.insertCell();
+                            usernameCell.textContent = admin.username;
+                            emailCell.textContent = admin.email;
+                        });
+
+                        // Clear existing table (if any) and append the new table
+                        const allAdminsTab = document.getElementById('allAdmins');
+                        allAdminsTab.innerHTML = '';
+                        allAdminsTab.appendChild(table);
+                    } else {
+                        console.error('Invalid response format:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function fetchAllAdminsForDelete() {
+            fetch('https://transitserver.govindsr.me/api/v2/getAllAdmins')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data); // Print the response for debugging
+
+                    if (data.success && Array.isArray(data.admins)) {
+                        // Build the table with username, email, and delete button fields
+                        const table = document.createElement('table');
+                        const headerRow = table.insertRow();
+                        const usernameHeader = headerRow.insertCell();
+                        const emailHeader = headerRow.insertCell();
+                        const deleteHeader = headerRow.insertCell();
+                        usernameHeader.textContent = 'Username';
+                        emailHeader.textContent = 'Email';
+                        deleteHeader.textContent = 'Delete';
+
+                        // Add data rows with delete buttons
+                        data.admins.forEach(admin => {
+                            const row = table.insertRow();
+                            const usernameCell = row.insertCell();
+                            const emailCell = row.insertCell();
+                            const deleteCell = row.insertCell();
+                            usernameCell.textContent = admin.username;
+                            emailCell.textContent = admin.email;
+
+                            // Create a delete button for each admin
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.addEventListener('click', () => deleteAdmin(admin.email));
+                            deleteCell.appendChild(deleteButton);
+                        });
+
+                        // Clear existing table (if any) and append the new table
+                        const deleteAdminTab = document.getElementById('deleteAdmin');
+                        deleteAdminTab.innerHTML = '';
+                        deleteAdminTab.appendChild(table);
+                    } else {
+                        console.error('Invalid response format:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function fetchAllStationMastersForDelete() {
+            fetch('https://transitserver.govindsr.me/api/v2/getAllStationMasters')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Response:', data); // Print the response for debugging
+
+                    if (data.success && Array.isArray(data.stationMasters)) {
+                        // Build the table with username, email, and delete button fields
+                        const table = document.createElement('table');
+                        const headerRow = table.insertRow();
+                        const usernameHeader = headerRow.insertCell();
+                        const emailHeader = headerRow.insertCell();
+                        const deleteHeader = headerRow.insertCell();
+                        usernameHeader.textContent = 'Username';
+                        emailHeader.textContent = 'Email';
+                        deleteHeader.textContent = 'Delete';
+
+                        // Add data rows with delete buttons
+                        data.stationMasters.forEach(stationMaster => {
+                            const row = table.insertRow();
+                            const usernameCell = row.insertCell();
+                            const emailCell = row.insertCell();
+                            const deleteCell = row.insertCell();
+                            usernameCell.textContent = stationMaster.username;
+                            emailCell.textContent = stationMaster.email;
+
+                            // Create a delete button for each station master
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Delete';
+                            deleteButton.addEventListener('click', () => deleteStationMaster(stationMaster.email));
+                            deleteCell.appendChild(deleteButton);
+                        });
+
+                        // Clear existing table (if any) and append the new table
+                        const deleteStationMasterTab = document.getElementById('deleteStationMaster');
+                        deleteStationMasterTab.innerHTML = '';
+                        deleteStationMasterTab.appendChild(table);
+                    } else {
+                        console.error('Invalid response format:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+        function deleteAdmin(email) {
+            fetch(`https://transitserver.govindsr.me/api/v2/deleteAdmin/${email}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Admin deleted successfully.');
+                        showTab('allAdmins');
+                    } else {
+                        alert('Failed to delete Admin. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+        function logout() {
+            fetch('https://transitserver.govindsr.me/api/v2/logoutAdmin', {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Logout successful.');
+                        // Redirect to the login page here
+                        // Replace the line below with your desired redirection code
+                        window.location.href = 'index.html';
+                    } else {
+                        alert('Failed to logout. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="logo">
+        <img src="Kerala_State_Road_Transport_Corporation_logo.png" alt="Logo"><br><br><br>
+        <h6>TransitMaster</h6>
+    </div>
+
+    <div class="title_head">
+        <i class="fa fa-user-circle"></i>
+        <button onclick="logout()">Logout</button>
+        <h2>Admin Dashboard</h2>
+      </div>   
+
+    <div class="toolbar">
+        <h3>ADMIN</h3>
+        <button onclick="showTab('allAdmins')">LIST</button><br>
+        <button onclick="showTab('deleteAdmin')">DELETE</button><br>
+        <h3>STATION MASTER</h3>
+        <button onclick="showTab('allStationMasters')">LIST</button><br>
+        <button onclick="showTab('createStationMaster')">CREATE</button><br>
+        <button onclick="showTab('deleteStationMaster')">DELETE</button><br>
+        <a href="" id="helpdesk">Contact us</a>
+    </div>
+    <div class="details">
+    <!-- All Admins Tab -->
+    <div id="allAdmins" class="tab"></div>
+
+    <!-- Delete Admin Tab -->
+    <div id="deleteAdmin" class="tab"></div>
+
+    <!-- Create Station Master Tab -->
+    <div id="createStationMaster" class="tab">
+        <h2>Create Station Master</h2>
+        <form id="createStationMasterForm">
+            <label for="stationMasterUsername">Username:</label>
+            <input type="text" id="stationMasterUsername" required><br><br><br>
+            <label for="stationMasterEmail">Email:</label>
+            <input type="email" id="stationMasterEmail" required><br><br><br>
+            <label for="stationMasterPassword">Password:</label>
+            <input type="password" id="stationMasterPassword" required><br><br><br>
+            <button type="button" onclick="createStationMaster()">create</button>
+        </form>
+    </div>
+
+    <!-- All Station Masters Tab -->
+    <div id="allStationMasters" class="tab"></div>
+
+    <!-- Delete Station Master Tab -->
+    <div id="deleteStationMaster" class="tab"></div>
+</div>
+
+    <script>
+        // Show the 'All Admins' tab by default when the page loads
+        showTab('allAdmins');
+    </script>
+</body>
+
+</html>
