@@ -1,0 +1,125 @@
+body{
+    background-color: #2649b4;
+    margin: 0;
+    overflow: hidden;
+  }
+  .tab{
+    display: none;
+  }
+  .logo > img{
+    width: 50px;
+    height: 50px;
+    margin: 2px 0px -55px 20px;
+  }
+  .logo > h6{
+    padding-left:14px;
+  }
+  
+  .title_head{
+      margin:12px 0px 15px 0px;
+      padding: .1px 0px 0px 0px;
+      font-weight:600 ;
+      font-size: 16px; 
+      background-color:#ffffff;
+  }
+  .title_head >i{
+    font-size: 345%;
+    color: #ece9e9;
+    position: fixed;
+    right: 0;
+    padding: 1% 4% 0% 0%;
+    top: 0;
+  }
+  .title_head > button{
+    padding: 2px;
+    font-weight: 500;
+    margin: 5.3% 3.7% 5% 5%;
+    position: fixed;
+    right: 0;
+    top: 0%;
+    width: 4%;
+    border-radius: 20px;
+  }
+  .title_head > button:hover{
+    background-color: #ccc;
+  }
+  .title_head > h2{
+    text-align: center;
+    font-weight: 700;
+  }
+  
+  .toolbar{
+    position: fixed;
+    left:0;
+    width: 15%;
+    margin:0px;
+    background-color: rgb(255,255,255);
+    padding: 0% 0% 20.6% 0%;
+  }
+  .toolbar > h3{
+    background-color: #e8e7e76e;
+    padding: 6px 5px 6px 7%;
+    margin-top: 0;
+  }
+  .toolbar > button{
+    color: #0d2467;
+    width: 100%;
+    background-color: white;
+    border: 1px solid white;
+    padding: 2% 5% 7% 5%;
+  }
+  .toolbar>#helpdesk{
+    bottom:0;
+    left: 0;
+    padding:0px 0px 24px 70px;
+    position: absolute;
+  }
+  
+  .details{
+    position: relative;
+    float: right;
+    width:85%;
+    background-color: #fafafa;  
+    padding:0% 0% 40% 0%;
+  }
+  a{
+    color: black;
+    text-decoration: none;  
+  }
+  
+  #createStationMaster{
+    width: 30%;
+    margin: 3% 1% 2% 3%;
+    position: absolute;
+    left: 25%;
+  }
+  #createStationMasterForm{
+    padding: 2% 0% 0% 1%;
+   
+
+  }
+  #createStationMasterForm > input{
+    width: 73%;
+    padding-top: 1%;
+    margin-left: 3%;
+    float: right;
+    border-radius:6px;
+    border: 1px solid rgba(0, 0, 0, 0.255) ;
+  }
+
+  #createStationMasterForm > button{
+  margin: 7% 0% 0% 25%;
+  padding: 1.5%;
+  font-weight: 500;
+  width: 20%;
+  border: 1px;
+  background-color: #2649b4;
+  border-radius: 13px;
+  color: white;
+  }
+  
+  #createStationMasterForm > button:hover{
+  background-color: #0d2467;
+  }
+  
+  

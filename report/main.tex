@@ -1,0 +1,66 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+% Define colors
+\definecolor{lightgray}{gray}{0.9}
+
+% Set page margins
+\geometry{margin=1in}
+
+% Set line spacing
+\onehalfspacing
+
+\title{CHAPTER 1 \\ INTRODUCTION}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Background}
+
+\subsection*{1.1 The Decision for Transit Master Online}
+The decision to make Transit Master online stems from the goal of enhancing the overall travel experience for passengers. By transitioning the system to an online platform, several crucial enhancements can be achieved:
+\begin{itemize}
+  \item Real-time data updates become possible, enabling immediate fare validation, card balance updates, and synchronization of passenger data between NFC card readers and the central backend servers. This ensures that passengers have accurate and up-to-date information while using the public transportation services.
+  \item To operate seamlessly online, network connectivity becomes essential. Integration with cellular networks or other data connectivity options ensures continuous communication between NFC card readers and backend servers in real time. Additionally, hosting the backend servers in the cloud, such as Microsoft Azure or AWS, allows for scalability, ensuring that the system can efficiently handle increased user demand and data processing as the application grows.
+  \item Security measures play a vital role in the online system. Implementing robust security measures, including encryption, secure APIs, and authentication mechanisms like JWT, protects passenger data and payment information from unauthorized access and cyber threats, ensuring user privacy and data integrity.
+  \item Furthermore, integrating payment gateways like Stripe or PayPal provides secure online payment processing options for fare payments and account top-ups, offering passengers multiple payment choices for their convenience.
+  \item The online system also involves implementing user accounts with authentication mechanisms like JWT, providing passengers with personalized services, the ability to track fare transactions, and enhanced security for their accounts.
+  \item Overall, the transition of Transit Master to an online system is expected to provide a more efficient, reliable, and user-friendly public transportation management platform. The college project aims to showcase the practical implementation of these enhancements, demonstrating the potential benefits of modernizing public transportation through online systems using NFC cards.
+\end{itemize}
+
+\subsection{Objective}
+
+To facilitate seamless travel in public transport using prepaid NFC cards issued by the Transport Depot. It aims to provide users with a convenient and efficient travel experience, offering discounts for students and supporting two types of NFC cards: NFC-enabled phones and physical NFC cards issued by the station Depot.
+
+\subsection{Problem Statement}
+
+To address the problems of the existing public transportation system, such as difficulties in real-time tracking, online ticketing, and complex arrangements of bus routes and schedules.
+\newpage
+
+\section{Literature Survey}
+
+The literature review covers various studies and algorithms focused on enhancing public transportation systems. It introduces an open-source route reconstruction algorithm for complex networks, data-driven recommendations for improving bus services in Indian cities, optimization of bus routes in Kandy using ticketing data, planning guidelines for Bus Rapid Transit (BRT), and a user-controlled bus operations model through a mobile app. These approaches offer promising solutions for efficient public transit, but implementation challenges and data quality must be considered.
+
+JRoute offers powerful FPGA design control but faces constraints in FPGA support and requires Java knowledge. Open data catalogs promote innovation but raise privacy and data quality concerns. The literature review explores innovative solutions for public transportation, including a route planning API for Bangkok, a bus tracking system for Surabaya, and blended data for bus ridership forecasting. These solutions aim to enhance efficiency, user experience, and accurate predictions, but they also acknowledge limitations in FPGA support, API reliance, and implementation complexities. Valuable insights are provided for advancing public transportation systems with a focus on addressing challenges and ensuring data quality.
+
+The provided literature explores intelligent and IoT-based systems to enhance bus scheduling, tracking, and management. These systems offer advantages like dynamic scheduling, improved user experience, reduced waiting time, and efficient bus utilization. However, their successful implementation may require further research, expansion, and integration to fully realize their potential benefits. The papers highlight the potential for transforming public transportation through technology, but practical considerations must be addressed to ensure seamless integration and optimal outcomes.
+
+\subsection{Literature Review Summary}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{image1}
+  \caption{Summary of Literature Review}
+  \label{fig:image1}
+\end{figure}
+
+
+\end{document}
